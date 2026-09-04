@@ -1,271 +1,347 @@
 <!DOCTYPE html>
-<html>
+<!--
+  UiA Grimstad Kanonball — plain HTML, no build step.
+  Text is written twice: <span lang="no"> and <span lang="en">.
+-->
+<html lang="no" data-lang="no">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UiA Grimstad Kanonball — kanonball hver søndag i Grimstad</title>
+  <meta name="description" content="Studentdrevet kanonball ved UiA Grimstad. Hver søndag 20:00 i Sparebanken Norge Arena. Åpent for alle studenter — ingen erfaring og ingen kontingent.">
+
+  <!-- Link previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="UiA Grimstad Kanonball">
+  <meta property="og:description" content="Kanonball hver søndag 20:00 i Sparebanken Norge Arena Grimstad. Åpent for alle studenter.">
+  <meta property="og:url" content="https://grmkanonball.no/">
+  <meta property="og:locale" content="nb_NO">
+  <!-- For a picture in link previews, add a 1200x630 image and uncomment:
+       <meta property="og:image" content="https://grmkanonball.no/preview.jpg"> -->
+
+  <!-- Tab icon, drawn inline so there is no icon file -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='%23ff4d1c' stroke='%231e1a15' stroke-width='3'/></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow+Condensed:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<x-dc>
-<helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Barlow+Condensed:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  html, body { margin: 0; padding: 0; }
-  body {
-    background: #efe6d4;
-    color: #1e1a15;
-    font-family: "Work Sans", Helvetica, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: #c93b12; text-decoration: none; }
-  a:hover { color: #1e1a15; }
-  @keyframes kb-drift { from { background-position: 0 0; } to { background-position: 120px 120px; } }
-</style>
-</helmet>
-<div style="background: #efe6d4; background-image: radial-gradient(rgba(30,26,21,0.10) 1px, transparent 1.4px); background-size: 4px 4px; min-height: 100vh; overflow-x: hidden;">
 
-  <header style="position: sticky; top: 0; z-index: 40; background: #1e1a15; border-bottom: 3px solid #ff4d1c;">
-    <div style="max-width: 1180px; margin: 0 auto; padding: 10px clamp(16px, 4vw, 40px); display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-      <div style="display: flex; align-items: center; gap: 12px; margin-right: auto;">
-        <div style="width: 34px; height: 34px; border-radius: 50%; background: #ff4d1c; border: 3px solid #efe6d4; flex: none;"></div>
-        <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #efe6d4; line-height: 1.05; font-size: clamp(13px, 2.6vw, 16px);">
-          UiA Grimstad<br><span style="color: #ff4d1c;">Kanonball</span>
-        </div>
-      </div>
-      <div style="display: flex; align-items: center; gap: 4px; padding: 4px; border: 2px solid rgba(239,230,212,0.35); border-radius: 999px;">
-        <button onClick="{{ setNo }}" style="{{ noBtnStyle }}" style-hover="opacity: 0.85;">NO</button>
-        <button onClick="{{ setEn }}" style="{{ enBtnStyle }}" style-hover="opacity: 0.85;">EN</button>
-      </div>
-      <a href="{{ igUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; background: #ff4d1c; color: #1e1a15; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 15px; padding: 9px 16px; border-radius: 999px; border: 2px solid #1e1a15; box-shadow: 3px 3px 0 #efe6d4;" style-hover="transform: translate(1px, 1px); box-shadow: 2px 2px 0 #efe6d4;">
-        <span style="display: inline-block; width: 14px; height: 14px; border: 2.5px solid #1e1a15; border-radius: 4px; position: relative;" style-after="content: ''; position: absolute; inset: 2px; border: 2px solid #1e1a15; border-radius: 50%;"></span>
-        {{ t.navCta }}
+
+<!-- ===== Header ===== -->
+
+<header class="header">
+  <div class="header__inner container">
+
+    <a class="logo" href="/">
+      <span class="logo__ball"></span>
+      <span class="logo__name">UiA Grimstad<br><em>Kanonball</em></span>
+    </a>
+
+    <div class="lang">
+      <button type="button" value="no" aria-label="Norsk">NO</button>
+      <button type="button" value="en" aria-label="English">EN</button>
+    </div>
+
+    <!-- EDIT: Instagram -->
+    <a class="header__cta" href="https://www.instagram.com/uiagrimstadkanonball/" target="_blank" rel="noopener">
+      <span class="icon-instagram" aria-hidden="true"></span>
+      Instagram
+    </a>
+
+  </div>
+</header>
+
+
+<!-- ===== Hero ===== -->
+
+<section class="hero container">
+  <div class="hero__inner">
+
+    <p class="hero__tag">
+      <span lang="no">Studentkanonball · Grimstad</span>
+      <span lang="en">Student dodgeball · Grimstad</span>
+    </p>
+
+    <h1 class="hero__title">
+      <span lang="no">Søndag er</span>
+      <span lang="en">Sunday is</span>
+      <span class="outlined">kanonball</span>
+    </h1>
+
+    <p class="hero__text">
+      <span lang="no">Åpent for alle studenter ved UiA Grimstad. Ingen erfaring, ingen kontingent, ingen sure miner — bare halltid, harde baller og folk du ikke har møtt ennå.</span>
+      <span lang="en">Open to every student at UiA Grimstad. No experience, no fee, no attitude — just gym time, hard balls and people you haven't met yet.</span>
+    </p>
+
+    <div class="hero__actions">
+
+      <!-- EDIT: Instagram -->
+      <a class="btn btn--orange" href="https://www.instagram.com/uiagrimstadkanonball/" target="_blank" rel="noopener">
+        <span lang="no">Følg oss på</span>
+        <span lang="en">Follow us on</span>
+        <span class="btn__pill">@uiagrimstadkanonball</span>
       </a>
-    </div>
-  </header>
 
-  <section style="max-width: 1180px; margin: 0 auto; padding: clamp(28px, 6vw, 72px) clamp(16px, 4vw, 40px) clamp(24px, 5vw, 56px);">
-    <div style="display: flex; justify-content: center;">
-      <div style="container-type: inline-size; width: 100%; max-width: 840px; text-align: center;">
-        <div style="display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(12px, 2.4vw, 14px); color: #1e1a15; background: #ffd9a0; border: 2px solid #1e1a15; padding: 5px 12px; transform: rotate(-1.5deg); margin-bottom: 18px;">
-          {{ t.kicker }}
-        </div>
-        <h1 style="font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: clamp(34px, 10cqw, 82px); line-height: 0.96; letter-spacing: -0.015em; margin: 0 0 18px; text-transform: uppercase; text-wrap: balance;">
-          <span style="display: block;">{{ t.h1a }}</span>
-          <span style="display: block; color: #ff4d1c; -webkit-text-stroke: 2px #1e1a15;">{{ t.h1b }}</span>
-        </h1>
-        <p style="font-size: clamp(16px, 2.6vw, 20px); line-height: 1.55; max-width: 30em; margin: 0 auto 28px; color: #3b342a; text-wrap: pretty;">
-          {{ t.heroP }}
-        </p>
-        <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center;">
-          <a href="{{ igUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 12px; background: #ff4d1c; color: #1e1a15; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(18px, 3.4vw, 24px); padding: 16px 26px; border: 3px solid #1e1a15; border-radius: 4px; box-shadow: 6px 6px 0 #1e1a15; min-height: 48px;" style-hover="transform: translate(3px, 3px); box-shadow: 3px 3px 0 #1e1a15;">
-            {{ t.heroCta }}
-            <span style="font-family: 'Work Sans', sans-serif; font-weight: 600; font-size: 0.72em; letter-spacing: 0; text-transform: none; background: #1e1a15; color: #ffd9a0; padding: 4px 10px; border-radius: 999px;">{{ handle }}</span>
-          </a>
-          <span style="display: inline-block; background: #1e1a15; color: #efe6d4; border: 3px solid #ff4d1c; padding: 10px 16px; transform: rotate(-2deg); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(13px, 2.4vw, 16px);">{{ t.stamp }}</span>
-        </div>
-      </div>
-    </div>
-  </section>
+      <p class="hero__stamp">
+        <span lang="no">Alle nivåer velkomne</span>
+        <span lang="en">All levels welcome</span>
+      </p>
 
-  <div style="background: #1e1a15; color: #efe6d4; border-top: 3px solid #1e1a15; border-bottom: 3px solid #1e1a15; overflow: hidden; padding: 12px 0;">
-    <div style="display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(12px, 2.2vw, 15px); padding: 0 16px; text-align: center;">
-      <span>{{ t.tick1 }}</span>
-      <span style="color: #ff4d1c;">✱</span>
-      <span>{{ t.tick2 }}</span>
-      <span style="color: #ff4d1c;">✱</span>
-      <span>{{ t.tick3 }}</span>
     </div>
+
+  </div>
+</section>
+
+
+<!-- ===== Ticker ===== -->
+
+<div class="ticker">
+  <div class="ticker__inner">
+
+    <!-- EDIT: day and time -->
+    <span>
+      <span lang="no">Hver søndag 20:00</span>
+      <span lang="en">Every Sunday 20:00</span>
+    </span>
+
+    <span class="ticker__star" aria-hidden="true">✱</span>
+
+    <!-- EDIT: venue -->
+    <span>Sparebanken Norge Arena Grimstad</span>
+
+    <span class="ticker__star" aria-hidden="true">✱</span>
+
+    <span>
+      <span lang="no">Meld deg på i Spond</span>
+      <span lang="en">Sign up in Spond</span>
+    </span>
+
+  </div>
+</div>
+
+
+<!-- ===== What is it =====
+     Copy an <article class="card"> block to add another card. -->
+
+<section class="section container">
+
+  <h2 class="section-title">
+    <span lang="no">Hva er greia?</span>
+    <span lang="en">What is it?</span>
+  </h2>
+
+  <p class="section-lead">
+    <span lang="no">Kanonball er sporten du sist spilte i gymtimen, men høyere tempo og med bedre selskap. To lag, én hall, og to timer der ingen tenker på eksamen.</span>
+    <span lang="en">Kanonball is Norwegian dodgeball — the game you last played in PE, at a higher tempo and in better company. Two teams, one gym, and two hours where nobody thinks about exams.</span>
+  </p>
+
+  <div class="cards">
+
+    <article class="card">
+      <p class="card__number">01</p>
+      <h3 class="card__title">
+        <span lang="no">Null krav</span>
+        <span lang="en">Zero requirements</span>
+      </h3>
+      <p class="card__text">
+        <span lang="no">Du trenger ikke være i form, kunne reglene eller kjenne noen. Du lærer alt i første runde.</span>
+        <span lang="en">You don't need to be fit, know the rules or know anyone. You'll pick it all up in the first round.</span>
+      </p>
+    </article>
+
+    <article class="card">
+      <p class="card__number">02</p>
+      <h3 class="card__title">
+        <span lang="no">Ta med innesko</span>
+        <span lang="en">Bring indoor shoes</span>
+      </h3>
+      <p class="card__text">
+        <span lang="no">Det er hele utstyrslista. Ballene står klare, det gjør vi også.</span>
+        <span lang="en">That's the whole packing list. The balls are ready, and so are we.</span>
+      </p>
+    </article>
+
   </div>
 
-  <section style="max-width: 1180px; margin: 0 auto; padding: clamp(40px, 7vw, 88px) clamp(16px, 4vw, 40px);">
-    <h2 style="font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: clamp(28px, 6vw, 52px); line-height: 1.02; margin: 0 0 14px; text-transform: uppercase;">
-      {{ t.h2what }}
-    </h2>
-    <p style="font-size: clamp(16px, 2.4vw, 19px); line-height: 1.6; max-width: 34em; margin: 0 0 clamp(28px, 4vw, 44px); color: #3b342a; text-wrap: pretty;">{{ t.whatP }}</p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(16px, 2.5vw, 24px);">
-      <div style="background: #efe6d4; border: 3px solid #1e1a15; padding: clamp(20px, 3vw, 28px); box-shadow: 6px 6px 0 rgba(30,26,21,0.16);">
-        <div style="font-family: 'Alfa Slab One', serif; color: #ff4d1c; font-size: 34px; line-height: 1; margin-bottom: 12px;">01</div>
-        <h3 style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: clamp(19px, 3vw, 23px); margin: 0 0 8px;">{{ t.c1h }}</h3>
-        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3b342a;">{{ t.c1p }}</p>
-      </div>
-      <div style="background: #efe6d4; border: 3px solid #1e1a15; padding: clamp(20px, 3vw, 28px); box-shadow: 6px 6px 0 rgba(30,26,21,0.16);">
-        <div style="font-family: 'Alfa Slab One', serif; color: #ff4d1c; font-size: 34px; line-height: 1; margin-bottom: 12px;">02</div>
-        <h3 style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: clamp(19px, 3vw, 23px); margin: 0 0 8px;">{{ t.c2h }}</h3>
-        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3b342a;">{{ t.c2p }}</p>
-      </div>
-    </div>
-  </section>
+</section>
 
-  <section style="background: #ffd9a0; border-top: 3px solid #1e1a15; border-bottom: 3px solid #1e1a15;">
-    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(40px, 7vw, 84px) clamp(16px, 4vw, 40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(28px, 4vw, 52px); align-items: start;">
-      <div>
-        <h2 style="font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: clamp(28px, 6vw, 52px); line-height: 1.02; margin: 0 0 22px; text-transform: uppercase;">{{ t.h2when }}</h2>
-        <div style="display: grid; gap: 2px; border: 3px solid #1e1a15; background: #1e1a15;">
-          <div style="background: #efe6d4; padding: 18px clamp(16px, 2.5vw, 24px);">
-            <div style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; font-size: 13px; color: #6b6153; margin-bottom: 4px;">{{ t.lDay }}</div>
-            <div style="font-family: 'Alfa Slab One', serif; font-size: clamp(22px, 4vw, 30px); line-height: 1.1;">{{ t.vDay }}</div>
-          </div>
-          <div style="background: #efe6d4; padding: 18px clamp(16px, 2.5vw, 24px);">
-            <div style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; font-size: 13px; color: #6b6153; margin-bottom: 4px;">{{ t.lTime }}</div>
-            <div style="font-family: 'Alfa Slab One', serif; font-size: clamp(22px, 4vw, 30px); line-height: 1.1;">20:00 – 22:00</div>
-          </div>
-          <div style="background: #efe6d4; padding: 18px clamp(16px, 2.5vw, 24px);">
-            <div style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; font-size: 13px; color: #6b6153; margin-bottom: 4px;">{{ t.lPlace }}</div>
-            <div style="font-family: 'Alfa Slab One', serif; font-size: clamp(20px, 3.4vw, 27px); line-height: 1.15;">Sparebanken Norge Arena Grimstad</div>
-          </div>
+
+<!-- ===== When and where ===== -->
+
+<section class="when">
+  <div class="when__inner container">
+
+    <div>
+
+      <h2 class="section-title">
+        <span lang="no">Når og hvor</span>
+        <span lang="en">When and where</span>
+      </h2>
+
+      <div class="facts">
+
+        <div class="facts__row">
+          <p class="facts__label">
+            <span lang="no">Dag</span>
+            <span lang="en">Day</span>
+          </p>
+          <!-- EDIT: day -->
+          <p class="facts__value">
+            <span lang="no">Hver søndag</span>
+            <span lang="en">Every Sunday</span>
+          </p>
         </div>
-        <p style="font-size: clamp(15px, 2.3vw, 17px); line-height: 1.55; color: #3b342a; margin: 20px 0 0; max-width: 30em; text-wrap: pretty;">{{ t.whenNote }}</p>
-      </div>
-      <div style="border: 3px solid #1e1a15; background: #1e1a15; box-shadow: 10px 10px 0 rgba(30,26,21,0.2); display: flex; flex-direction: column;">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2170.562983877064!2d8.571436984648617!3d58.33533082019031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4647ee421ae0e0fb%3A0x88d8b31dec1f9e09!2sSparebanken%20Norge%20Arena%20Grimstad!5e0!3m2!1sno!2sno!4v1788523913095!5m2!1sno!2sno" title="Kart til Sparebanken Norge Arena Grimstad" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen="{{ true }}" style="width: 100%; height: clamp(260px, 44vw, 400px); border: 0; display: block; filter: saturate(0.85) contrast(1.02);"></iframe>
-        <a href="https://www.google.com/maps/place/Sparebanken+Norge+Arena+Grimstad" target="_blank" rel="noopener" style="background: #1e1a15; color: #ffd9a0; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 14px; padding: 12px 16px; text-align: center;" style-hover="color: #ff4d1c;">{{ t.mapCta }}</a>
-      </div>
-    </div>
-  </section>
 
-  <section style="max-width: 1180px; margin: 0 auto; padding: clamp(40px, 7vw, 84px) clamp(16px, 4vw, 40px) 0;">
-    <div style="border: 3px solid #1e1a15; background: #efe6d4; box-shadow: 8px 8px 0 rgba(30,26,21,0.16); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));">
-      <div style="padding: clamp(24px, 4vw, 40px);">
-        <div style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.18em; font-weight: 700; font-size: 13px; color: #c93b12; margin-bottom: 12px;">{{ t.spondKicker }}</div>
-        <h2 style="font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: clamp(26px, 5vw, 42px); line-height: 1.04; margin: 0 0 14px; text-transform: uppercase;">{{ t.spondH }}</h2>
-        <p style="font-size: clamp(15px, 2.3vw, 18px); line-height: 1.6; color: #3b342a; margin: 0 0 24px; max-width: 30em; text-wrap: pretty;">{{ t.spondP }}</p>
-        <a href="{{ spondUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; background: #1e1a15; color: #ffd9a0; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(16px, 2.8vw, 20px); padding: 14px 22px; border: 3px solid #1e1a15; border-radius: 4px; box-shadow: 5px 5px 0 #ff4d1c; min-height: 48px;" style-hover="transform: translate(2px, 2px); box-shadow: 3px 3px 0 #ff4d1c;">
-          {{ t.spondCta }}
-        </a>
-      </div>
-      <div style="background: #ffd9a0; border-left: 3px solid #1e1a15; padding: clamp(24px, 4vw, 40px); display: flex; flex-direction: column; justify-content: center; gap: 10px;">
-        <div style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; font-size: 13px; color: #6b6153;">{{ t.spondCodeLabel }}</div>
-        <div style="font-family: 'Alfa Slab One', serif; font-size: clamp(34px, 8vw, 60px); line-height: 1; letter-spacing: 0.06em; color: #1e1a15;">{{ spondCode }}</div>
-        <div style="font-size: 15px; line-height: 1.5; color: #3b342a; max-width: 24em;">{{ t.spondStep }}</div>
-      </div>
-    </div>
-  </section>
+        <div class="facts__row">
+          <p class="facts__label">
+            <span lang="no">Tid</span>
+            <span lang="en">Time</span>
+          </p>
+          <!-- EDIT: time -->
+          <p class="facts__value">20:00 – 22:00</p>
+        </div>
 
-  <section style="max-width: 1180px; margin: 0 auto; padding: clamp(44px, 8vw, 96px) clamp(16px, 4vw, 40px);">
-    <div style="background: #1e1a15; color: #efe6d4; border: 3px solid #1e1a15; box-shadow: 12px 12px 0 #ff4d1c; padding: clamp(26px, 5vw, 60px); text-align: center;">
-      <div style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.18em; font-weight: 700; font-size: clamp(12px, 2.2vw, 15px); color: #ff4d1c; margin-bottom: 16px;">{{ t.igKicker }}</div>
-      <h2 style="font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: clamp(30px, 7vw, 64px); line-height: 1.0; margin: 0 auto 18px; text-transform: uppercase; max-width: 18em; text-wrap: balance;">{{ t.igH }}</h2>
-      <p style="font-size: clamp(16px, 2.5vw, 20px); line-height: 1.55; color: rgba(239,230,212,0.85); max-width: 30em; margin: 0 auto clamp(26px, 4vw, 36px); text-wrap: pretty;">{{ t.igP }}</p>
-      <a href="{{ igUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 12px; background: #ff4d1c; color: #1e1a15; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(19px, 3.6vw, 28px); padding: 18px 30px; border: 3px solid #efe6d4; border-radius: 4px; box-shadow: 6px 6px 0 #efe6d4; min-height: 52px;" style-hover="transform: translate(3px, 3px); box-shadow: 3px 3px 0 #efe6d4;">
-        {{ t.igCta }}
+        <div class="facts__row">
+          <p class="facts__label">
+            <span lang="no">Sted</span>
+            <span lang="en">Venue</span>
+          </p>
+          <!-- EDIT: venue -->
+          <p class="facts__value facts__value--long">Sparebanken Norge Arena Grimstad</p>
+        </div>
+
+      </div>
+
+      <p class="when__note">
+        <span lang="no">Endringer i tid eller hall varsles alltid på Instagram først. Følg kontoen, så slipper du bomtur.</span>
+        <span lang="en">Any change of time or venue is announced on Instagram first. Follow the account and you'll never show up to an empty gym.</span>
+      </p>
+
+    </div>
+
+    <!-- EDIT: map. Google Maps > Share > Embed a map, then paste the src here -->
+    <div class="map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2170.562983877064!2d8.571436984648617!3d58.33533082019031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4647ee421ae0e0fb%3A0x88d8b31dec1f9e09!2sSparebanken%20Norge%20Arena%20Grimstad!5e0!3m2!1sno!2sno!4v1788523913095!5m2!1sno!2sno"
+        title="Kart til Sparebanken Norge Arena Grimstad"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
+      <a class="map__link" href="https://maps.app.goo.gl/KAa3QGY7cM1ahxKg8" target="_blank" rel="noopener">
+        <span lang="no">Åpne i Google Maps</span>
+        <span lang="en">Open in Google Maps</span>
       </a>
-      <div style="font-family: ui-monospace, Menlo, monospace; font-size: clamp(14px, 2.6vw, 18px); color: #ffd9a0; margin-top: 20px;">{{ handle }}</div>
     </div>
-  </section>
 
-  <footer style="border-top: 3px solid #1e1a15; background: #efe6d4;">
-    <div style="max-width: 1180px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 40px) 34px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
-      <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 15px;">UiA Grimstad Kanonball</div>
-      <div style="display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; color: #6b6153;">
-        <a href="{{ igUrl }}" target="_blank" rel="noopener">{{ handle }}</a>
-        <span>{{ t.footNote }}</span>
-      </div>
+  </div>
+</section>
+
+
+<!-- ===== Spond ===== -->
+
+<section class="spond container">
+  <div class="spond__box">
+
+    <div class="spond__text">
+
+      <p class="kicker">
+        <span lang="no">Oppmøte</span>
+        <span lang="en">Attendance</span>
+      </p>
+
+      <h2 class="section-title">
+        <span lang="no">Meld oppmøte i Spond</span>
+        <span lang="en">Confirm attendance in Spond</span>
+      </h2>
+
+      <p class="spond__desc">
+        <span lang="no">Vi bruker Spond til å holde oversikt over hvem som kommer. Bli med i gruppa, så ser du treningene og kan si ja eller nei på ett trykk.</span>
+        <span lang="en">We use Spond to keep track of who's coming. Join the group to see the sessions and answer yes or no in one tap.</span>
+      </p>
+
+      <!-- EDIT: Spond code -->
+      <a class="btn btn--dark" href="https://spond.com/invite/XLMGI" target="_blank" rel="noopener">
+        <span lang="no">Bli med i Spond-gruppa</span>
+        <span lang="en">Join the Spond group</span>
+      </a>
+
     </div>
-  </footer>
 
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;instagramHandle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;@uiagrimstadkanonball&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Innhold&quot;},&quot;spondCode&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;XLMGI&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Innhold&quot;},&quot;initialLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;no&quot;,&quot;en&quot;],&quot;default&quot;:&quot;no&quot;,&quot;tsType&quot;:&quot;\&quot;no\&quot; | \&quot;en\&quot;&quot;,&quot;section&quot;:&quot;Innhold&quot;}}">
-const COPY = {
-  no: {
-    navCta: "Instagram", kicker: "Studentkanonball · Grimstad",
-    h1a: "Søndag er", h1b: "kanonball",
-    heroP: "Åpent for alle studenter ved UiA Grimstad. Ingen erfaring, ingen kontingent, ingen sure miner — bare halltid, harde baller og folk du ikke har møtt ennå.",
-    heroCta: "Følg oss på", heroCtaNote: "Alt nytt legges ut der først — kamper, endringer, spontane økter.",
-    stamp: "Alle nivåer velkomne", ph1: "[ bilde: full hall midt i en kamp ]",
-    tick1: "Hver søndag 20:00", tick2: "Sparebanken Norge Arena Grimstad", tick3: "Meld deg på i Spond",
-    spondKicker: "Oppmøte", spondH: "Meld oppmøte i Spond",
-    spondP: "Vi bruker Spond til å holde oversikt over hvem som kommer. Bli med i gruppa, så ser du treningene og kan si ja eller nei på ett trykk.",
-    spondCta: "Bli med i Spond-gruppa", spondCodeLabel: "Gruppekode",
-    spondStep: "Har du appen? Åpne Spond → Bli med i gruppe → skriv inn koden.",
-    h2what: "Hva er greia?",
-    whatP: "Kanonball er sporten du sist spilte i gymtimen, men høyere tempo og med bedre selskap. To lag, én hall, og to timer der ingen tenker på eksamen.",
-    c1h: "Null krav", c1p: "Du trenger ikke være i form, kunne reglene eller kjenne noen. Du lærer alt i første runde.",
-    c2h: "Ta med innesko", c2p: "Det er hele utstyrslista. Ballene står klare, det gjør vi også.",
-    c3h: "Flere enn sporten", c3p: "Etter halltid blir det ofte noe sosialt. Det er halve poenget med å møte opp.",
-    h2when: "Når og hvor",
-    lDay: "Dag", vDay: "Hver søndag", lTime: "Tid", lPlace: "Sted",
-    whenNote: "Endringer i tid eller hall varsles alltid på Instagram først. Følg kontoen, så slipper du bomtur.",
-    ph2: "[ bilde: hallen utenfra / kart-skjermbilde ]",
-    igKicker: "Her skjer alt",
-    igH: "All ny info kommer på Instagram",
-    igP: "Vi har ingen nyhetsbrev og ingen kalender å holde oppdatert. Vi legger ut kampdager, endringer og bilder på Instagram — det er den ene tingen du må gjøre for å være med.",
-    igCta: "Åpne Instagram-profilen",
-    footNote: "Studentdrevet · Universitetet i Agder, Grimstad",
-    mapCta: "Åpne i Google Maps"
-  },
-  en: {
-    navCta: "Instagram", kicker: "Student dodgeball · Grimstad",
-    h1a: "Sunday is", h1b: "kanonball",
-    heroP: "Open to every student at UiA Grimstad. No experience, no fee, no attitude — just gym time, hard balls and people you haven't met yet.",
-    heroCta: "Follow us on", heroCtaNote: "Everything new is posted there first — games, changes, spontaneous sessions.",
-    stamp: "All levels welcome", ph1: "[ photo: full gym mid-game ]",
-    tick1: "Every Sunday 20:00", tick2: "Sparebanken Norge Arena Grimstad", tick3: "Sign up in Spond",
-    spondKicker: "Attendance", spondH: "Confirm attendance in Spond",
-    spondP: "We use Spond to keep track of who's coming. Join the group to see the sessions and answer yes or no in one tap.",
-    spondCta: "Join the Spond group", spondCodeLabel: "Group code",
-    spondStep: "Already have the app? Open Spond → Join group → enter the code.",
-    h2what: "What is it?",
-    whatP: "Kanonball is Norwegian dodgeball — the game you last played in PE, at a higher tempo and in better company. Two teams, one gym, and two hours where nobody thinks about exams.",
-    c1h: "Zero requirements", c1p: "You don't need to be fit, know the rules or know anyone. You'll pick it all up in the first round.",
-    c2h: "Bring indoor shoes", c2p: "That's the whole packing list. The balls are ready, and so are we.",
-    c3h: "More than the sport", c3p: "Gym time usually turns into something social afterwards. That's half the reason people come.",
-    h2when: "When and where",
-    lDay: "Day", vDay: "Every Sunday", lTime: "Time", lPlace: "Venue",
-    whenNote: "Any change of time or venue is announced on Instagram first. Follow the account and you'll never show up to an empty gym.",
-    ph2: "[ photo: venue exterior / map screenshot ]",
-    igKicker: "Everything happens here",
-    igH: "All new info goes on Instagram",
-    igP: "We don't run a newsletter or keep a calendar up to date. Game days, changes and photos all go on Instagram — following it is the one thing you need to do to join.",
-    igCta: "Open the Instagram profile",
-    footNote: "Student-run · University of Agder, Grimstad",
-    mapCta: "Open in Google Maps"
-  }
-};
+    <div class="spond__code">
+      <p class="spond__code-label">
+        <span lang="no">Gruppekode</span>
+        <span lang="en">Group code</span>
+      </p>
+      <!-- EDIT: Spond code -->
+      <p class="spond__code-value">XLMGI</p>
+      <p class="spond__code-step">
+        <span lang="no">Har du appen? Åpne Spond → Bli med i gruppe → skriv inn koden.</span>
+        <span lang="en">Already have the app? Open Spond → Join group → enter the code.</span>
+      </p>
+    </div>
 
-class Component extends DCLogic {
-  state = { lang: null };
+  </div>
+</section>
 
-  get lang() {
-    return this.state.lang || this.props.initialLang || "no";
-  }
 
-  tab(active) {
-    return {
-      background: active ? "#ff4d1c" : "transparent",
-      color: active ? "#1e1a15" : "rgba(239,230,212,0.75)",
-      border: "none",
-      cursor: "pointer",
-      fontFamily: "'Barlow Condensed', sans-serif",
-      fontWeight: 700,
-      letterSpacing: "0.1em",
-      fontSize: "14px",
-      padding: "6px 12px",
-      borderRadius: "999px",
-      minHeight: "32px"
-    };
-  }
+<!-- ===== Instagram ===== -->
 
-  renderVals() {
-    const handleRaw = (this.props.instagramHandle || "@uiagrimstadkanonball").trim();
-    const handle = handleRaw.startsWith("@") ? handleRaw : "@" + handleRaw;
-    const lang = this.lang;
-    return {
-      t: COPY[lang] || COPY.no,
-      handle,
-      igUrl: "https://www.instagram.com/" + handle.slice(1) + "/",
-      spondCode: (this.props.spondCode || "XLMGI").trim().toUpperCase(),
-      spondUrl: "https://spond.com/invite/" + (this.props.spondCode || "XLMGI").trim().toUpperCase(),
-      noBtnStyle: this.tab(lang === "no"),
-      enBtnStyle: this.tab(lang === "en"),
-      setNo: () => this.setState({ lang: "no" }),
-      setEn: () => this.setState({ lang: "en" })
-    };
-  }
-}
-</script>
+<section class="instagram container">
+  <div class="instagram__box">
+
+    <p class="kicker">
+      <span lang="no">Her skjer alt</span>
+      <span lang="en">Everything happens here</span>
+    </p>
+
+    <h2 class="section-title">
+      <span lang="no">All ny info kommer på Instagram</span>
+      <span lang="en">All new info goes on Instagram</span>
+    </h2>
+
+    <p class="instagram__text">
+      <span lang="no">Vi har ingen nyhetsbrev og ingen kalender å holde oppdatert. Vi legger ut kampdager, endringer og bilder på Instagram — det er den ene tingen du må gjøre for å være med.</span>
+      <span lang="en">We don't run a newsletter or keep a calendar up to date. Game days, changes and photos all go on Instagram — following it is the one thing you need to do to join.</span>
+    </p>
+
+    <!-- EDIT: Instagram -->
+    <a class="btn btn--on-dark" href="https://www.instagram.com/uiagrimstadkanonball/" target="_blank" rel="noopener">
+      <span lang="no">Åpne Instagram-profilen</span>
+      <span lang="en">Open the Instagram profile</span>
+    </a>
+
+    <!-- EDIT: Instagram -->
+    <p class="instagram__handle">@uiagrimstadkanonball</p>
+
+  </div>
+</section>
+
+
+<!-- ===== Footer ===== -->
+
+<footer class="footer">
+  <div class="footer__inner container">
+
+    <p class="footer__brand">UiA Grimstad Kanonball</p>
+
+    <div class="footer__meta">
+      <!-- EDIT: Instagram -->
+      <a href="https://www.instagram.com/uiagrimstadkanonball/" target="_blank" rel="noopener">@uiagrimstadkanonball</a>
+      <span>
+        <span lang="no">Studentdrevet · Universitetet i Agder, Grimstad</span>
+        <span lang="en">Student-run · University of Agder, Grimstad</span>
+      </span>
+    </div>
+
+  </div>
+</footer>
+
+
+<script src="script.js"></script>
 </body>
 </html>
